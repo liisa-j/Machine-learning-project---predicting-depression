@@ -72,6 +72,6 @@ Install the required Python packages:
 pip install -r requirements.txt
 ````
 
-# **4. .... **
+# **4. ....**
 
 Then next.... 
