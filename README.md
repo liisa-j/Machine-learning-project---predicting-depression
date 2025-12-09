@@ -7,7 +7,7 @@ This project processes Twitter data to create datasets for predicting depression
 
 ---
 
-## **1. Dataset**
+# **1. Dataset**
 
 The datasets are **not included** in this repository due to size (3+ GB). You need to download them manually:
 
@@ -23,12 +23,12 @@ mkdir data
 
 Unzip these depression.zip and neg.zip files into your project folder:
 
-# Positive class
+## Positive class
 ```bash
 unzip depression.zip -d data/depression_data
 ````
 
-# Negative class
+## Negative class
 ```bash
 unzip neg.zip -d data/neg_data
 ```
@@ -43,3 +43,35 @@ data/
 │  └─ media/data_dump/udit/submission/dataset/neg/cleaned_data_neg/
 ```
 
+# **2. Scripts**
+
+process_posclass.py — Processes the positive (depressed) class.
+
+Reads JSON files in depression_data/...
+
+Flattens tweets, filters by ±90 days around the anchor tweet, and labels them
+
+Outputs: data/tweets.parquet
+
+process_negclass.py — Processes the negative/control class.
+
+Reads JSON files in neg_data/...
+
+Flattens tweets in batches and labels them as control
+
+Outputs: data/neg_combined.parquet
+
+Note: Both scripts expect the folder structure above. If you unzip the datasets elsewhere, update DATA_ROOT and neg_root in the scripts accordingly.
+
+
+# **3. Requirements**
+
+Install the required Python packages:
+
+```` bash
+pip install -r requirements.txt
+````
+
+# **4. .... **
+
+Then next.... 
