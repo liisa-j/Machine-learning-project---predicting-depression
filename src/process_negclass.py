@@ -1,71 +1,55 @@
 import os
 import json
+import random
 import pandas as pd
-from tqdm import tqdm
-import pyarrow as pa
-import pyarrow.parquet as pq
 
-# Extract tweets in batches (because the data is huge)
-
+# Path to negative-class JSON data
 NEG_ROOT = "data/neg_data/media/data_dump/udit/submission/dataset/neg/cleaned_data_neg"
-OUTPUT_DIR = "data/neg_parquet_batches"
-os.makedirs(OUTPUT_DIR, exist_ok=True)
-BATCH_SIZE = 500
 
-def extract_user_tweets(user_folder):
-    tweets_path = os.path.join(user_folder, "tweets.json")
-    if not os.path.exists(tweets_path):
-        return pd.DataFrame()
+# Number of tweets to sample (should match your positive class)
+N_POSITIVE = 12151305
 
-    try:
-        with open(tweets_path, "r") as f:
-            tweets_dict = json.load(f)
-    except:
-        return pd.DataFrame()
+all_neg_rows = []
 
-    rows = []
-    for date, tweets_list in tweets_dict.items():
-        for t in tweets_list:
-            rows.append({
-                "tweet_id": t.get("tweet_id"),
-                "text": t.get("text"),
-                "timestamp": t.get("timestamp_tweet"),
-                "disorder_flag": t.get("disorder_flag", False),
-                "user_id": os.path.basename(user_folder)
-            })
-    if rows:
-        return pd.DataFrame(rows)
-    else:
-        return pd.DataFrame()
-
+# Collect all negative tweets
 user_folders = [os.path.join(NEG_ROOT, d) for d in os.listdir(NEG_ROOT) if os.path.isdir(os.path.join(NEG_ROOT, d))]
 
-for i in tqdm(range(0, len(user_folders), BATCH_SIZE), desc="Processing negative dataset in batches"):
-    batch_folders = user_folders[i:i+BATCH_SIZE]
-    batch_dfs = [extract_user_tweets(f) for f in batch_folders]
-    batch_df = pd.concat(batch_dfs, ignore_index=True)
+for folder in user_folders:
+    tweets_file = os.path.join(folder, "tweets.json")
+    if not os.path.exists(tweets_file):
+        continue
 
-    if not batch_df.empty:
-        batch_file = os.path.join(OUTPUT_DIR, f"neg_batch_{i//BATCH_SIZE + 1}.parquet")
-        batch_df.to_parquet(batch_file, engine='pyarrow', index=False)
+    try:
+        with open(tweets_file, "r", encoding="utf-8") as f:
+            tweets_dict = json.load(f)
+    except Exception as e:
+        print(f"Skipping {folder} due to error: {e}")
+        continue
 
-    del batch_df
+    for tweet_list in tweets_dict.values():
+        for t in tweet_list:
+            tweet_text = t.get("text")
+            tweet_date = t.get("timestamp_tweet")
+            if not tweet_text or not tweet_date:
+                continue
 
-# Combine all batch Parquet files into one file (neg_combined.parquet)
+            all_neg_rows.append({
+                "user_id": os.path.basename(folder),
+                "tweet_text": tweet_text,
+                "tweet_date": tweet_date,
+                "is_anchor": False,
+                "label": "control"
+            })
 
-all_files = [os.path.join(OUTPUT_DIR, f) for f in os.listdir(OUTPUT_DIR) if f.endswith(".parquet")]
-output_file = "data/neg_combined.parquet"
+# Random sample to match positive class size
+if len(all_neg_rows) > N_POSITIVE:
+    neg_sample = random.sample(all_neg_rows, N_POSITIVE)
+else:
+    neg_sample = all_neg_rows
 
-first_file = True
-for f in tqdm(all_files, desc="Combining batch Parquet files"):
-    df = pd.read_parquet(f)
-    table = pa.Table.from_pandas(df)
+# Convert to DataFrame and save as Parquet
+df_neg_sample = pd.DataFrame(neg_sample)
+output_path = "data/neg_sampled.parquet"
+df_neg_sample.to_parquet(output_path, index=False, engine='pyarrow')
 
-    if first_file:
-        writer = pq.ParquetWriter(output_file, table.schema)
-        first_file = False
-
-    writer.write_table(table)
-
-writer.close()
-print("All negative tweets combined into:", output_file)
+print(f"Saved {df_neg_sample.shape[0]} negative tweets to {output_path}")
