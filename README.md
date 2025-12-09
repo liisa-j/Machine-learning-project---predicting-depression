@@ -45,7 +45,7 @@ data/
 
 # **2. Scripts**
 
-process_posclass.py — Processes the positive (depressed) class.
+**process_posclass.py** — Processes the positive (depressed) class.
 
 Reads JSON files in depression_data/...
 
@@ -53,7 +53,7 @@ Flattens tweets, filters by ±90 days around the anchor tweet, and labels them
 
 Outputs: data/tweets.parquet
 
-process_negclass.py — Processes the negative/control class.
+**process_negclass.py** — Processes the negative/control class.
 
 Reads JSON files in neg_data/...
 
