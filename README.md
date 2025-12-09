@@ -19,17 +19,19 @@ The datasets are **not included** in this repository due to size (3+ GB). You ne
 In your repo root, create a data/ folder:
 ```bash
 mkdir data
-
+```
 
 Unzip these depression.zip and neg.zip files into your project folder:
 
 # Positive class
 ```bash
 unzip depression.zip -d data/depression_data
+````
 
 # Negative class
 ```bash
 unzip neg.zip -d data/neg_data
+```
 
 The file structure should look like this: 
 
@@ -39,5 +41,5 @@ data/
 │  └─ media/data_dump/udit/submission/dataset/depression/cleaned_data_depression/
 ├─ neg_data/
 │  └─ media/data_dump/udit/submission/dataset/neg/cleaned_data_neg/
-
+```
 
