@@ -6,16 +6,14 @@ from dateutil import parser
 import pytz
 import random
 
-
 NEG_ROOT = "data/neg/media/data_dump/udit/submission/dataset/neg/cleaned_data_neg"
 OUTPUT_FILE = "data/neg_sampled.parquet"
 
-# Number of negative tweets to sample = number of positive-class tweets
-N_POSITIVE = 12151305 
+# Number of negative tweets to sample = number of positive tweets
+N_POSITIVE = 12151305  
 
 # === HELPERS ===
 def make_aware(dt_str):
-    """Convert a datetime string to UTC-aware ISO 8601 format."""
     if not dt_str:
         return None
     dt = parser.isoparse(dt_str)
@@ -48,20 +46,31 @@ def extract_user_tweets(user_folder):
             })
     return rows
 
-# === MAIN ===
-all_neg_rows = []
-user_folders = [os.path.join(NEG_ROOT, d) for d in os.listdir(NEG_ROOT) if os.path.isdir(os.path.join(NEG_ROOT, d))]
+# === MEMORY-SAFE RESERVOIR SAMPLING ===
+sample = []
+count = 0
 
-for folder in tqdm(user_folders, desc="Processing negative users"):
-    all_neg_rows.extend(extract_user_tweets(folder))
+user_folders = [os.path.join(NEG_ROOT, d)
+                for d in os.listdir(NEG_ROOT)
+                if os.path.isdir(os.path.join(NEG_ROOT, d))]
 
-print(f"Total negative tweets before sampling: {len(all_neg_rows)}")
+for folder in tqdm(user_folders, desc="Sampling negative tweets"):
+    tweets = extract_user_tweets(folder)
+    
+    for row in tweets:
+        count += 1
+        if len(sample) < N_POSITIVE:
+            sample.append(row)
+        else:
+            # Replace random element with decreasing probability
+            r = random.randint(0, count - 1)
+            if r < N_POSITIVE:
+                sample[r] = row
 
-# Randomly sample negative tweets to match positive class size
-if len(all_neg_rows) > N_POSITIVE:
-    all_neg_rows = random.sample(all_neg_rows, N_POSITIVE)
+print(f"Total negative tweets processed: {count}")
+print(f"Final sample size: {len(sample)}")
 
-# Convert to DataFrame and save
-df_neg = pd.DataFrame(all_neg_rows)
+# Save to Parquet
+df_neg = pd.DataFrame(sample)
 df_neg.to_parquet(OUTPUT_FILE, engine="pyarrow", index=False)
-print(f"Saved {df_neg.shape[0]} negative tweets to {OUTPUT_FILE}")
+print(f"Saved balanced negative sample to {OUTPUT_FILE}")
