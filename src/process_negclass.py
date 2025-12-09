@@ -7,7 +7,7 @@ import pytz
 import random
 
 
-NEG_ROOT = "data/neg_data/media/data_dump/udit/submission/dataset/neg/cleaned_data_neg"
+NEG_ROOT = "data/neg/media/data_dump/udit/submission/dataset/neg/cleaned_data_neg"
 OUTPUT_FILE = "data/neg_sampled.parquet"
 
 # Number of negative tweets to sample = number of positive-class tweets
