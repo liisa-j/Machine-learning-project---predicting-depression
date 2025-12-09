@@ -6,7 +6,7 @@ from dateutil import parser
 import pytz  # for UTC handling
 
 # Path to your depression JSON data
-DATA_ROOT = "data/depression_data/media/data_dump/udit/submission/dataset/depression/cleaned_data_depression"
+DATA_ROOT = "data/depression/media/data_dump/udit/submission/dataset/depression/cleaned_data_depression"
 TIME_WINDOW_DAYS = 90  # ±90 days around anchor tweet
 
 all_rows = []
