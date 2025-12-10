@@ -37,9 +37,9 @@ The file structure should look like this:
 
 ```swift
 data/
-├─ depression_data/
+├─ depression/
 │  └─ media/data_dump/udit/submission/dataset/depression/cleaned_data_depression/
-├─ neg_data/
+├─ neg/
 │  └─ media/data_dump/udit/submission/dataset/neg/cleaned_data_neg/
 ```
 
