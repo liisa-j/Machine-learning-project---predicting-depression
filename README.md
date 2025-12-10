@@ -25,12 +25,12 @@ Unzip these depression.zip and neg.zip files into your project folder:
 
 ## Positive class
 ```bash
-unzip depression.zip -d data/depression_data
+unzip depression.zip -d data/depression
 ````
 
 ## Negative class
 ```bash
-unzip neg.zip -d data/neg_data
+unzip neg.zip -d data/neg
 ```
 
 The file structure should look like this: 
