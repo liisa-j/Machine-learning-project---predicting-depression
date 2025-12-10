@@ -10,3 +10,7 @@ __pycache__/
 
 #temporary
 explore_parquet.py
+
+# intermediate presentation materials on github
+intermediade_presentation/*
+!intermediade_presentation/.gitkeep
