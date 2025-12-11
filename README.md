@@ -2,19 +2,20 @@
 This is a repo for 'Machine learning' project, autumn 2025
 
 
+This repository consists of: 
+/.../
 
-This project processes Twitter data to create datasets for predicting depression. It includes scripts to process both the **positive class (depressed users)** and the **negative/control class**.
 
 ---
 
-# **1. Dataset**
+# **I Dataset**
 
 The data used in this project is from: https://zenodo.org/records/5854911
 
 Citation: Suhavi, Singh, A., Arora, U., Shrivastava, S., Singh, A., Shah, R. R., & Kumaraguru, P. (2022). Twitter Self-reported Temporally-contextual Mental Health Diagnosis (Twitter-STMHD) Dataset (Version 1) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.5854911 
 
 
-## **Getting the data**
+## **1. Getting the data**
 
 The datasets are **not included** in this repository due to size (3+ GB). Please download datasets manually:
 
@@ -49,7 +50,7 @@ data/
 │  └─ media/data_dump/udit/submission/dataset/neg/cleaned_data_neg/
 ```
 
-## **Scripts for data preprocessing**
+## **2. Scripts for data preprocessing**
 *NB - If you for any reason want to rerun these scripts, please understand that running these scripts takes times, as does downloading the zipped datasets you need for running them. Thanks!*
 
 **process_posclass.py** — Processes the positive (depressed) class.
@@ -80,9 +81,12 @@ Randomly samples rows.
 Shuffles df to remove any residual ordering.
 Saves the sampled dataset to Parquet. 
 
+## **3. Scripts for feature extraction**
+
+Here will be the explanations about extracting features (LIWC, textstat, stylo etc... )
 
 
-# **3. Requirements**
+# **II Requirements**
 
 Install the required Python packages:
 
@@ -90,6 +94,6 @@ Install the required Python packages:
 pip install -r requirements.txt
 ````
 
-# **4. ....**
+# **III Models**
 
 Then next.... 
