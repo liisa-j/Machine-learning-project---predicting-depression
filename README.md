@@ -13,11 +13,13 @@ The data used in this project is from: https://zenodo.org/records/5854911
 
 Citation: Suhavi, Singh, A., Arora, U., Shrivastava, S., Singh, A., Shah, R. R., & Kumaraguru, P. (2022). Twitter Self-reported Temporally-contextual Mental Health Diagnosis (Twitter-STMHD) Dataset (Version 1) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.5854911 
 
-The datasets are **not included** in this repository due to size (3+ GB). You need to download them manually:
+
+## **Getting the data**
+
+The datasets are **not included** in this repository due to size (3+ GB). Please download datasets manually:
 
 - **Positive class (depressed users):** [depression.zip](https://zenodo.org/records/5854911/files/depression.zip?download=1)  
 - **Negative class (control users):** [neg.zip](https://zenodo.org/records/5854911/files/neg.zip?download=1)  
-
 
 
 In your repo root, create a data/ folder:
@@ -47,7 +49,7 @@ data/
 │  └─ media/data_dump/udit/submission/dataset/neg/cleaned_data_neg/
 ```
 
-# **2. Scripts for data processing**
+## **Scripts for data preprocessing**
 *NB - If you for any reason want to rerun these scripts, please understand that running these scripts takes times, as does downloading the zipped datasets you need for running them. Thanks!*
 
 **process_posclass.py** — Processes the positive (depressed) class.
