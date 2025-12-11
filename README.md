@@ -44,7 +44,7 @@ data/
 ```
 
 # **2. Scripts**
-*** NB - If you for any reason want to rerun these scripts, please understand that running these scripts takes times, as does downloading the zipped datasets you need for running them. Thanks! ***
+* NB - If you for any reason want to rerun these scripts, please understand that running these scripts takes times, as does downloading the zipped datasets you need for running them. Thanks! *
 
 **process_posclass.py** — Processes the positive (depressed) class.
 
