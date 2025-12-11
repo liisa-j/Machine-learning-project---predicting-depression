@@ -44,24 +44,36 @@ data/
 ```
 
 # **2. Scripts**
+*** NB - If you for any reason want to rerun these scripts, please understand that running these scripts takes times, as does downloading the zipped datasets you need for running them. Thanks! ***
 
 **process_posclass.py** — Processes the positive (depressed) class.
 
 Reads JSON files in depression_data/...
-
 Flattens tweets, filters by ±90 days around the anchor tweet, and labels them
-
 Outputs: data/tweets.parquet
 
-**process_negclass.py** — Processes the negative/control class.
+**process_negclass.py** — processes the negative/control class.
 
 Reads JSON files in neg_data/...
-
 Flattens tweets in batches and labels them as control
-
 Outputs: data/neg_combined.parquet
 
-Note: Both scripts expect the folder structure above. If you unzip the datasets elsewhere, update DATA_ROOT and neg_root in the scripts accordingly.
+
+**final_df.py** - creates a final dataframe of 20 million lines (combing previously produced negative and positive class datasets)
+
+Loads datasets using pandas.read_parquet.
+Converts user_id to string to ensure consistent data types.
+Combines datasets with pd.concat.
+Shuffles the combined df randomly to remove ordering effects.
+Saves the final combined df to Parquet. 
+
+**short_df.py** - creates a smaller (1 million rows), randomly sampled version of the previous combined_tweets.parquet. 
+
+Loads the combined df using pandas.read_parquet.
+Randomly samples rows.
+Shuffles df to remove any residual ordering.
+Saves the sampled dataset to Parquet. 
+
 
 
 # **3. Requirements**
