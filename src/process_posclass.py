@@ -41,14 +41,17 @@ for root, dirs, files in tqdm(os.walk(DATA_ROOT), desc="Processing folders"):
 
             anchor_date = make_aware(anchor_date_str)
 
-            # Add anchor tweet
-            all_rows.append({
-                "user_id": user_id,
-                "tweet_text": anchor_text,
-                "tweet_date": anchor_date_str,
-                "is_anchor": True,
-                "label": "depressed"
-            })
+            # Add anchor tweet only if English
+            anchor_lang = anchor.get("language", "en")  # default to 'en' if missing
+            if anchor_lang == "en":
+                all_rows.append({
+                    "user_id": user_id,
+                    "tweet_text": anchor_text,
+                    "tweet_date": anchor_date_str,
+                    "language": "en",
+                    "is_anchor": True,
+                    "label": "depressed"
+                })
 
             # Load user tweets
             with open(os.path.join(root, "tweets.json")) as f:
@@ -59,7 +62,10 @@ for root, dirs, files in tqdm(os.walk(DATA_ROOT), desc="Processing folders"):
                 for tweet in tweets_list:
                     tweet_text = tweet.get("text")
                     tweet_date = tweet.get("timestamp_tweet")
-                    if not tweet_text or not tweet_date:
+                    tweet_lang = tweet.get("language")  # language field
+
+                    # Skip if missing or not English
+                    if not tweet_text or not tweet_date or tweet_lang != "en":
                         continue
 
                     tweet_dt = make_aware(tweet_date)
@@ -70,6 +76,7 @@ for root, dirs, files in tqdm(os.walk(DATA_ROOT), desc="Processing folders"):
                             "user_id": user_id,
                             "tweet_text": tweet_text,
                             "tweet_date": tweet_date,
+                            "language": "en",
                             "is_anchor": False,
                             "label": "depressed"
                         })
@@ -80,6 +87,6 @@ for root, dirs, files in tqdm(os.walk(DATA_ROOT), desc="Processing folders"):
 
 # Convert to DataFrame and save as Parquet
 df_tweets = pd.DataFrame(all_rows)
-output_path = "data/tweets.parquet"
+output_path = "data/tweets_english.parquet"
 df_tweets.to_parquet(output_path, engine='pyarrow', index=False)
-print(f"Saved {df_tweets.shape[0]} tweets to {output_path}")
+print(f"Saved {df_tweets.shape[0]} English tweets to {output_path}")
