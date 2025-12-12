@@ -91,66 +91,66 @@ Writes the cleaned dataframe to: data/shorty_clean.parquet
 **features_shorter.py** - code for extracting text derived linguistic features. 
 
 **Basic text metrics:**
-char_count – total number of characters in the text
-word_count – total number of words
-avg_word_len – average word length
-unique_word_ratio – ratio of unique words to total words
+char_count (total number of characters in the text), 
+word_count (total number of words),
+avg_word_len (average word length),
+unique_word_ratio (ratio of unique words to total words)
 
 **Punctuation & stylistic:**
-uppercase_ratio – proportion of words in all caps
-elongation_count – count of repeated letters (e.g., “soooo”)
-ellipsis_count – count of “...”
-count_exclamation – number of !
-count_question – number of ?
+uppercase_ratio (proportion of words in all caps), 
+elongation_count (count of repeated letters (e.g., “soooo”)),
+ellipsis_count (count of “...”),
+count_exclamation (number of !),
+count_question (number of ?)
 
 **Emoji features:**
-emoji_count – total number of emojis
-emoji_unique_count – number of unique emojis
+emoji_count (total number of emojis),
+emoji_unique_count (number of unique emojis)
 
 **Sentiment (TextBlob):**
-polarity – sentiment polarity (-1 to 1)
-subjectivity – sentiment subjectivity (0 to 1)
+polarity (sentiment polarity (-1 to 1)),
+subjectivity (sentiment subjectivity (0 to 1))
 
 **Empath categories:**
-sadness
-fear
-anger
-negative_emotion
-positive_emotion
-social
-family
-friendship
-swearing
-health
-money
-work
-leisure
-time
-past
-future
-cognitive_mechanisms
-perceptual
-motion
-body
-sexual
-religion
-affection
-achievement
-reward
-dominance
-power
-anxious
-tentative
+sadness,
+fear,
+anger,
+negative_emotion,
+positive_emotion,
+social,
+family,
+friendship,
+swearing,
+health,
+money,
+work,
+leisure,
+time,
+past,
+future,
+cognitive_mechanisms,
+perceptual,
+motion,
+body,
+sexual,
+religion,
+affection,
+achievement,
+reward,
+dominance,
+power,
+anxious,
+tentative,
 certainty
 
 **Grammar / lexical patterns:**
-first_person_count – count of first-person pronouns (I, me, etc.)
-negation_count – count of negations (not, never, none, etc.)
-max_word_repeat – maximum number of times a single word is repeated
+first_person_count (count of first-person pronouns (I, me, etc.)),
+negation_count (count of negations (not, never, none, etc.)),
+max_word_repeat (maximum number of times a single word is repeated)
 
 **Readability (textstat):**
-flesch_reading_ease – Flesch reading ease score
-flesch_kincaid_grade – Flesch-Kincaid grade level
+flesch_reading_ease (Flesch reading ease score),
+flesch_kincaid_grade (Flesch-Kincaid grade level)
 
 
 # **II Requirements**
@@ -169,4 +169,6 @@ python -m spacy download en_core_web_sm
 
 # **III Models**
 
-Then next.... 
+**RF.py and RF2.py** - code for training random forest on the data
+**linear_regression.py** - code for training linear regression on the data
+**svm.py** - code for training svm on the data

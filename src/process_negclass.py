@@ -78,7 +78,7 @@ print(f"Total negative tweets processed: {count}")
 print(f"Final sample size: {len(sample)}")
 
 # Save to Parquet
-os.makedirs(os.path.dirname(OUTPUT_FILE), exist_ok=True)  # ensure folder exists
+os.makedirs(os.path.dirname(OUTPUT_FILE), exist_ok=True)  
 df_neg = pd.DataFrame(sample)
 df_neg.to_parquet(OUTPUT_FILE, engine="pyarrow", index=False)
 print(f"Saved balanced English negative sample to {OUTPUT_FILE}")

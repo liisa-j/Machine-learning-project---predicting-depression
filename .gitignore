@@ -12,6 +12,7 @@ __pycache__/
 explore_parquet.py
 test.py
 features.py
+shorty_report.txt
 
 # intermediate presentation materials on github
 intermediade_presentation/*

@@ -3,9 +3,8 @@ import json
 import pandas as pd
 from tqdm import tqdm
 from dateutil import parser
-import pytz  # for UTC handling
+import pytz  
 
-# Path to your depression JSON data
 DATA_ROOT = "data/depression/media/data_dump/udit/submission/dataset/depression/cleaned_data_depression"
 TIME_WINDOW_DAYS = 90  # ±90 days around anchor tweet
 
@@ -42,7 +41,7 @@ for root, dirs, files in tqdm(os.walk(DATA_ROOT), desc="Processing folders"):
             anchor_date = make_aware(anchor_date_str)
 
             # Add anchor tweet only if English
-            anchor_lang = anchor.get("language", "en")  # default to 'en' if missing
+            anchor_lang = anchor.get("language", "en")  
             if anchor_lang == "en":
                 all_rows.append({
                     "user_id": user_id,
@@ -62,7 +61,7 @@ for root, dirs, files in tqdm(os.walk(DATA_ROOT), desc="Processing folders"):
                 for tweet in tweets_list:
                     tweet_text = tweet.get("text")
                     tweet_date = tweet.get("timestamp_tweet")
-                    tweet_lang = tweet.get("language")  # language field
+                    tweet_lang = tweet.get("language") 
 
                     # Skip if missing or not English
                     if not tweet_text or not tweet_date or tweet_lang != "en":
