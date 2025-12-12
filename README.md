@@ -82,7 +82,7 @@ Shuffles df to remove any residual ordering.
 Saves the sampled dataset to Parquet. 
 
 **preprocessing.py** - cleans tweets
-Reads the raw parquet dataset: data/shorty.parquet. Cleans the data with preprocess_dataframe (Converts to lowercase, replaces URLs with <URL>, replaces mentions with @, removes standalone RT, emojis to text, encodes label col w LabelEncoder,  creates label_encoded, drops is_anchor, original text column, original label, removes extra whitespace)
+Reads the raw parquet dataset: data/shorty.parquet. Cleans the data with preprocess_dataframe (Converts to lowercase, replaces URLs with <URL>, replaces mentions with @, removes standalone RT, emojis to text, encodes label col w LabelEncoder,  creates label_encoded, drops is_anchor, original text column, original label, removes extra whitespace).
 Writes the cleaned dataframe to: data/shorty_clean.parquet
 
 

@@ -3,3 +3,5 @@ tqdm>=4.60.0
 pyarrow>=22.0.0
 python-dateutil>=2.8.0
 pytz>=2023.0
+emoji>=2.2.0
+scikit-learn>=1.2.2
