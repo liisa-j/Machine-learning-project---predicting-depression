@@ -8,6 +8,7 @@ Documents in main/root folder:
 - **requirements.txt** - contains requirements for running the code
 - **LICENCE** - an MIT licence
 - **Background, methods and goals.pdf** - to give insight to the problem at hand
+- **Results.pdf** - a pdf with a results report from running the models
 
 Folders in main/root folder: 
 - **src** - contains all the code necessary for the project (getting, cleaning, preprocessing the main Twitter dataset, feature extraction scripts and running models)
@@ -207,5 +208,9 @@ python -m spacy download en_core_web_sm
 # **III Models**
 
 **RF.py and RF2.py** - code for training random forest on the data
+
 **linear_regression.py** - code for training linear regression on the data
+
 **svm.py** - code for training svm on the data
+
+.....
