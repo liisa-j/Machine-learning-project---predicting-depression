@@ -64,7 +64,11 @@ data/
 
 ### b) Getting Reddit data
 
-... 
+The Reddit datasets also needs to be manually downloaded and saved in the /data folder:
+https://zenodo.org/records/3941387/files/depression_pre_features_tfidf_256.csv?download=1 
+https://zenodo.org/records/3941387/files/fitness_pre_features_tfidf_256.csv?download=1
+
+
 
 ## **2. Scripts for data preprocessing**
 *NB - If you for any reason want to rerun these scripts, please understand that running these scripts takes times, as does downloading the zipped datasets you need for running them. Thanks!*
@@ -105,7 +109,7 @@ Writes the cleaned dataframe to: data/shorty_clean.parquet
 
 ### b) Reddit data 
 
-... 
+**intermediate_presentation/create_parquets.py** - run this script that preprocesses the Reddit csv-s in your /data and saves 2 ready-to-use Reddit datasets into your /data folder. 
 
 
 ## **3. Scripts for feature extraction**
@@ -183,7 +187,7 @@ flesch_kincaid_grade (Flesch-Kincaid grade level)
 
 ### b) Reddit data
 
-...
+**features_from_reddit_dataset.py** - this script takes the short Reddit preprocessed dataset and creates a new dataframe for Reddit data with the same features as the abovementioned *features_shorter2.py*. 
 
 
 # **II Requirements**
