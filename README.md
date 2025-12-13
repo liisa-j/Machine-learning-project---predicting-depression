@@ -1,22 +1,34 @@
 # Machine-learning-project---predicting-depression
-This is a repo for 'Machine learning' project, autumn 2025
+This is a repository for 'Machine learning' project, autumn 2025
 
 
-This repository consists of: 
-/.../
+# Structure of this repository
+Documents in main/root folder:
+- **README.md** - contains all the instructions and explanations on how to use this repo. You are reading this now. 
+- **requirements.txt** - contains requirements for running the code
+- **LICENCE** - an MIT licence
+- **Background, methods and goals.pdf** - to give insight to the problem at hand
+
+Folders in main/root folder: 
+- **src** - contains all the code necessary for the project (getting, cleaning, preprocessing the main Twitter dataset, feature extraction scripts and running models)
+- **intermediate_presentation** - contains code for intermediate presentation dealing with the original Reddit dataset and extracting parquet files from this dataset (for more specific overview see the intermediate_presentation/README.md)
 
 
 ---
 
-# **I Dataset**
+# **I Datasets**
 
 The data used in this project is from: https://zenodo.org/records/5854911
 
 Citation: Suhavi, Singh, A., Arora, U., Shrivastava, S., Singh, A., Shah, R. R., & Kumaraguru, P. (2022). Twitter Self-reported Temporally-contextual Mental Health Diagnosis (Twitter-STMHD) Dataset (Version 1) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.5854911 
 
 
+Also another dataset was used: 
+
+
 ## **1. Getting the data**
 
+### a) Getting Twitter data
 The datasets are **not included** in this repository due to size (3+ GB). Please download datasets manually:
 
 - **Positive class (depressed users):** [depression.zip](https://zenodo.org/records/5854911/files/depression.zip?download=1)  
@@ -49,6 +61,10 @@ data/
 ├─ neg/
 │  └─ media/data_dump/udit/submission/dataset/neg/cleaned_data_neg/
 ```
+
+### b) Getting Reddit data
+
+... 
 
 ## **2. Scripts for data preprocessing**
 *NB - If you for any reason want to rerun these scripts, please understand that running these scripts takes times, as does downloading the zipped datasets you need for running them. Thanks!*
