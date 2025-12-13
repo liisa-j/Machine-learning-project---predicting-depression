@@ -1,3 +1,7 @@
+## This is the script we are using to extract features from Twitter data. 
+## Has less empath categories + some added features. 
+
+
 import re
 import emoji
 import pandas as pd
@@ -43,9 +47,13 @@ def count_punctuations(text: str) -> dict:
             "repeated_exclamation": len(REPEATED_EXCL.findall(text)),
             "repeated_question": len(REPEATED_QMARK.findall(text))}
 
+
+EMOJI_DEMOTIF = re.compile(r':([a-zA-Z_]+):')
+
 def count_emojis(text: str) -> dict:
-    emojis = [c for c in text if c in emoji.EMOJI_DATA]
+    emojis = EMOJI_DEMOTIF.findall(text)
     return {"emoji_count": len(emojis), "emoji_unique_count": len(set(emojis))}
+
 
 def get_sentiment(text: str) -> dict:
     blob = TextBlob(text)

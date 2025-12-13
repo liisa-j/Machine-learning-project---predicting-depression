@@ -69,6 +69,8 @@ data/
 ## **2. Scripts for data preprocessing**
 *NB - If you for any reason want to rerun these scripts, please understand that running these scripts takes times, as does downloading the zipped datasets you need for running them. Thanks!*
 
+
+### a) Twitter data
 **process_posclass.py** — Processes the positive (depressed) class.
 
 Reads JSON files in depression_data/...
@@ -101,23 +103,31 @@ Saves the sampled dataset to Parquet.
 Reads the raw parquet dataset: data/shorty.parquet. Cleans the data with preprocess_dataframe (Converts to lowercase, replaces URLs with <URL>, replaces mentions with @, removes standalone RT, emojis to text, encodes label col w LabelEncoder,  creates label_encoded, drops is_anchor, original text column, original label, removes extra whitespace).
 Writes the cleaned dataframe to: data/shorty_clean.parquet
 
+### b) Reddit data 
+
+... 
+
 
 ## **3. Scripts for feature extraction**
 
-**features_shorter.py** - code for extracting text derived linguistic features. 
+### a) Twitter data
+
+**features_shorter2.py** - code for extracting text derived linguistic features. 
 
 **Basic text metrics:**
 char_count (total number of characters in the text), 
 word_count (total number of words),
 avg_word_len (average word length),
-unique_word_ratio (ratio of unique words to total words)
+unique_word_ratio (ratio of unique words to total words), 
+sentence_count (structure and length at sentence level)
 
 **Punctuation & stylistic:**
 uppercase_ratio (proportion of words in all caps), 
 elongation_count (count of repeated letters (e.g., “soooo”)),
 ellipsis_count (count of “...”),
 count_exclamation (number of !),
-count_question (number of ?)
+count_question (number of ?), 
+repeated_exclamation, repeated_question (for expressive punctuation)
 
 **Emoji features:**
 emoji_count (total number of emojis),
@@ -125,7 +135,8 @@ emoji_unique_count (number of unique emojis)
 
 **Sentiment (TextBlob):**
 polarity (sentiment polarity (-1 to 1)),
-subjectivity (sentiment subjectivity (0 to 1))
+subjectivity (sentiment subjectivity (0 to 1)),
+vader_neg, vader_neu, vader_pos, vader_compound (for more nuanced sentiment breakdown)
 
 **Empath categories:**
 sadness,
@@ -162,11 +173,17 @@ certainty
 **Grammar / lexical patterns:**
 first_person_count (count of first-person pronouns (I, me, etc.)),
 negation_count (count of negations (not, never, none, etc.)),
-max_word_repeat (maximum number of times a single word is repeated)
+max_word_repeat (maximum number of times a single word is repeated), 
+function_word_count (common function words)
 
 **Readability (textstat):**
 flesch_reading_ease (Flesch reading ease score),
 flesch_kincaid_grade (Flesch-Kincaid grade level)
+
+
+### b) Reddit data
+
+...
 
 
 # **II Requirements**

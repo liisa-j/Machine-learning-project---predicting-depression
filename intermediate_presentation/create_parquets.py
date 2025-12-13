@@ -2,15 +2,14 @@ from pathlib import Path
 import pandas as pd
 import numpy as np
 import re
-
+from sklearn.preprocessing import LabelEncoder
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 DATA_DIR = PROJECT_ROOT / "data"
 
-# Input files
+
 depression_file = DATA_DIR / "depression_pre_features_tfidf_256.csv"
 fitness_file = DATA_DIR / "fitness_pre_features_tfidf_256.csv"
-
 
 # Load data and combine
 df_depression = pd.read_csv(depression_file, sep=",")
@@ -49,41 +48,32 @@ df_combined["absolutist_pct"] = df_combined.apply(
 # Shuffle dataset
 df_combined = df_combined.sample(frac=1, random_state=42).reset_index(drop=True)
 
-# Droo cols
-cols_to_drop = [
-    'economic_stress_total',
-    'isolation_total',
-    'substance_use_total',
-    'guns_total',
-    'domestic_stress_total',
-    'suicidality_total',
-    'author',
-    'date',
-    'post',
-    'liwc_achievement', 'liwc_biological',
-    'liwc_body', 'liwc_death','liwc_family',
-    'liwc_friends', 'liwc_health',  'liwc_home',
-    'liwc_humans', 'liwc_ingestion',  'liwc_leisure',
-    'liwc_money', 'liwc_motion', 'liwc_religion',
-    'liwc_sexual', 'liwc_work',
-]
-
-df_model = df_combined.drop(columns=cols_to_drop)
 
 # 1. Full dataset to parquet
-full_parquet_path = DATA_DIR / "full_dataset.parquet"
+full_parquet_path = DATA_DIR / "reddit_full_dataset.parquet"
 df_combined.to_parquet(full_parquet_path, index=False)
 print(f"Saved full dataset to: {full_parquet_path}")
 
-# 2. Short dataset (user_id, text, label) ready to parqet
-TEXT_COL = "post"          
-LABEL_COL = "depressed"    
-USER_COL = "author"        
+
+# 2. Short dataset ready for feature extraction
+TEXT_COL = "post"
+LABEL_COL = "depressed"
+USER_COL = "author"
 
 df_ml = df_combined[[USER_COL, TEXT_COL, LABEL_COL]].copy()
-df_ml[LABEL_COL] = df_ml[LABEL_COL].map({1: "depressed", 0: "not_depressed"})
-df_ml = df_ml.dropna(subset=[TEXT_COL, LABEL_COL])
 
-ml_parquet_path = DATA_DIR / "text_classification_dataset.parquet"
+# Rename text column to match feature extraction input
+df_ml = df_ml.rename(columns={TEXT_COL: "clean_text"})
+
+# Encode labels as integers for feature extraction
+le = LabelEncoder()
+df_ml["label_encoded"] = le.fit_transform(df_ml[LABEL_COL])
+
+
+df_ml = df_ml.drop(columns=[LABEL_COL])
+df_ml = df_ml.dropna(subset=["clean_text"])
+
+# Save parquet
+ml_parquet_path = DATA_DIR / "reddit_text_classification_dataset.parquet"
 df_ml.to_parquet(ml_parquet_path, index=False)
 print(f"Saved ML-ready dataset to: {ml_parquet_path}")
