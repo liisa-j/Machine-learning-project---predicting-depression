@@ -1,3 +1,11 @@
+## This script takes two downloaded Reddit csv files and
+## outputs 2 parquet files: 
+## 1) reddit_full_dataset.parquet - this is identical to 
+## the dataset we used in our intermediate presentation
+## 2) reddit_text_classification_dataset.parquet - this dataset has 
+## only 3 columns (author, clean_text, label_encoded)
+
+
 from pathlib import Path
 import pandas as pd
 import numpy as np

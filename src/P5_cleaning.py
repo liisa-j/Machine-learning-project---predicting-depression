@@ -1,3 +1,7 @@
+## Preprocessing: 5 ##
+## Code for cleaning Twitter data
+## Takes in shorty.parquet and outputs shorty_clean.parquet
+
 import re
 import emoji
 import pandas as pd

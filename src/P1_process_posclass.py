@@ -1,3 +1,10 @@
+### Preprocessing: 1 ###
+## This script uses the downloaded .json data, flattens it and creates a parquet 
+## of the positive (depressed) class. Uses all tweets within +- 3 months of users 
+## who have self-reported depression, filters english tweets. 
+## Outputs tweets_english.parquet
+
+
 import os
 import json
 import pandas as pd

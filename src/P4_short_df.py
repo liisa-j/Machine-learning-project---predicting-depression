@@ -1,8 +1,13 @@
+## Preprocessing: 4 ##
+## This code just makes a shorter (1 million lines)
+## dataset instead of original 24 million lines
+## Takes in combined_tweets.parquet and outputs shorty.parquet
+
 import pandas as pd
 
 input_file = "../data/combined_tweets.parquet"
 output_file = "../data/shorty.parquet"
-sample_size = 1_000_000  # target number of rows
+sample_size = 1_000_000 
 
 print("Loading dataset...")
 df = pd.read_parquet(input_file, engine="pyarrow")

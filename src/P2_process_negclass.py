@@ -1,3 +1,9 @@
+## Preprocessing: 2 ##
+## This script uses the downloaded .json data, flattens it and creates a parquet 
+## of the negative (non-depressed) class of the same size as the postive class.
+## Filters english tweets. 
+## Outputs neg_sampled_english.parquet
+
 import os
 import json
 import pandas as pd

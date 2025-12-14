@@ -1,3 +1,8 @@
+## Preprocessing: 3 ##
+## This code takes in the neg_sampled_english.parquet (negative class) 
+## and tweets_english.parquet (positive class) and returns combined_tweets.parquet
+## 24 million rows shuffled dataset
+
 import pandas as pd
 from tqdm import tqdm
 

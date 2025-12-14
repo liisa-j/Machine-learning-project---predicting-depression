@@ -1,6 +1,5 @@
-## This is the script we are using to extract features from Twitter data. 
-## Has less empath categories + some added features. 
-
+## Feature extraction: Reddit ##
+## This code takes the Reddit dataset (shorter one) and runs feature extraction on it
 
 import re
 import emoji
@@ -132,8 +131,14 @@ def extract_features(df: pd.DataFrame, text_column="clean_text") -> pd.DataFrame
     df = pd.concat([df, readability_df], axis=1)
     return df
 
+
+
 if __name__ == "__main__":
-    df = pd.read_parquet("data/shorty_clean.parquet")
+    # Load the Reddit dataset 
+    df = pd.read_parquet("data/reddit_text_classification_dataset.parquet")
+
     df_feat = extract_features(df)
-    df_feat.to_parquet("data/shorty_features.parquet", index=False)
-    print(f"Features extracted and saved to data/shorty_features.parquet. Total rows: {df_feat.shape[0]}")
+
+    # Save to a new parquet file with features
+    df_feat.to_parquet("data/reddit_features.parquet", index=False)
+    print(f"Features extracted and saved to data/reddit_features.parquet. Total rows: {df_feat.shape[0]}")

@@ -5,7 +5,7 @@ This is a repository for 'Machine learning' project, autumn 2025
 # Structure of this repository
 Documents in main/root folder:
 - **README.md** - contains all the instructions and explanations on how to use this repo. You are reading this now. 
-- **requirements.txt** - contains requirements for running the code
+- **requirements.txt** - contains list of required depencies for running the code
 - **LICENCE** - an MIT licence
 - **Background, methods and goals.pdf** - to give insight to the problem at hand
 - **Results.pdf** - a pdf with a results report from running the models
