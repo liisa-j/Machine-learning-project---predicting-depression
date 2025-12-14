@@ -1,6 +1,5 @@
 ## Preprocessing: 4 ##
-## This code just makes a shorter (1 million lines)
-## dataset instead of original 24 million lines
+## This script outputs a shorter (1 million lines) dataset instead of original 24 million lines
 ## Takes in combined_tweets.parquet and outputs shorty.parquet
 
 import pandas as pd
