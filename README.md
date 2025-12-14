@@ -19,12 +19,13 @@ Folders in main/root folder:
 
 # **I Datasets**
 
-The data used in this project is from: https://zenodo.org/records/5854911
+We are using 2 different datasets: one from Twitter and one from Reddit. 
 
-Citation: Suhavi, Singh, A., Arora, U., Shrivastava, S., Singh, A., Shah, R. R., & Kumaraguru, P. (2022). Twitter Self-reported Temporally-contextual Mental Health Diagnosis (Twitter-STMHD) Dataset (Version 1) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.5854911 
+**The Twitter dataset** used in this project is from: https://zenodo.org/records/5854911
+    The larger dataset created based on these .json files is 24 million rows and a shorter one used primarily in modeling is 1 million rows (equal classes). From the available original features we use author, tweet text and time (label is created based on anchor text and /or dataset class). See below for feature extraction and original data citation. 
 
-
-Also another dataset was used: 
+**The Reddit Mental Health dataset** used in this project is from: https://zenodo.org/records/3941387 
+    This dataset contains Reddit posts collected between 2018 and 2020 from 28 subreddits, including 15 mental health support subreddits and 13 control subreddits. For this project datasets from r/depression and r/fitness are used. The Reddit dataset comes with already preprocessed features (metadata, LIWC, TF-IDF, text and readability metrics, sentiment features, custom dictionaries) and weak labels (r/depression as a weak positive case label). The dataset derived from this source has 43373 rows (both classes are equal).
 
 
 ## **1. Getting the data**
@@ -73,23 +74,25 @@ https://zenodo.org/records/3941387/files/fitness_pre_features_tfidf_256.csv?down
 
 ## **2. Scripts for data preprocessing**
 *NB - If you for any reason want to rerun these scripts, please understand that running these scripts takes times, as does downloading the zipped datasets you need for running them. Thanks!*
-
+All scripts for data preprocessing begin with P and a number (shows the order in which the scripts
+should be run; e.g. P1_, P2_). 
+All scripts that extract features start with F_. 
 
 ### a) Twitter data
-**process_posclass.py** — Processes the positive (depressed) class.
+**P1_process_posclass.py** — Processes the positive (depressed) class.
 
 Reads JSON files in depression_data/...
 Flattens tweets, filters by ±90 days around the anchor tweet, and labels them
 Outputs: data/tweets.parquet
 
-**process_negclass.py** — processes the negative/control class.
+**P2_process_negclass.py** — processes the negative/control class.
 
 Reads JSON files in neg_data/...
 Flattens tweets in batches and labels them as control
 Outputs: data/neg_combined.parquet
 
 
-**final_df.py** - creates a final dataframe of 20 million lines (combing previously produced negative and positive class datasets)
+**P3_combined_df.py** - creates a final dataframe of 20 million lines (combing previously produced negative and positive class datasets)
 
 Loads datasets using pandas.read_parquet.
 Converts user_id to string to ensure consistent data types.
@@ -97,27 +100,27 @@ Combines datasets with pd.concat.
 Shuffles the combined df randomly to remove ordering effects.
 Saves the final combined df to Parquet. 
 
-**short_df.py** - creates a smaller (1 million rows), randomly sampled version of the previous combined_tweets.parquet. 
+**P4_short_df.py** - creates a smaller (1 million rows), randomly sampled version of the previous combined_tweets.parquet. 
 
 Loads the combined df using pandas.read_parquet.
 Randomly samples rows.
 Shuffles df to remove any residual ordering.
 Saves the sampled dataset to Parquet. 
 
-**preprocessing.py** - cleans tweets
+**P5_cleaning.py** - cleans tweets
 Reads the raw parquet dataset: data/shorty.parquet. Cleans the data with preprocess_dataframe (Converts to lowercase, replaces URLs with <URL>, replaces mentions with @, removes standalone RT, emojis to text, encodes label col w LabelEncoder,  creates label_encoded, drops is_anchor, original text column, original label, removes extra whitespace).
 Writes the cleaned dataframe to: data/shorty_clean.parquet
 
 ### b) Reddit data 
 
-**intermediate_presentation/create_parquets.py** - run this script that preprocesses the Reddit csv-s in your /data and saves 2 ready-to-use Reddit datasets into your /data folder. 
+**P6_intermediate_presentation/create_parquets.py** - run this script that preprocesses the Reddit csv-s in your /data and saves 2 ready-to-use Reddit datasets into your /data folder. 
 
 
 ## **3. Scripts for feature extraction**
 
 ### a) Twitter data
 
-**features_shorter2.py** - code for extracting text derived linguistic features. 
+**F_features_from_Twitter.py** - code for extracting text derived linguistic features. 
 
 **Basic text metrics:**
 char_count (total number of characters in the text), 
@@ -188,7 +191,7 @@ flesch_kincaid_grade (Flesch-Kincaid grade level)
 
 ### b) Reddit data
 
-**features_from_reddit_dataset.py** - this script takes the short Reddit preprocessed dataset and creates a new dataframe for Reddit data with the same features as the abovementioned *features_shorter2.py*. 
+**F_features_from_reddit_dataset.py** - this script takes the short Reddit preprocessed dataset and creates a new dataframe for Reddit data with the same features as the abovementioned *features_shorter2.py*. 
 
 
 # **II Requirements**
@@ -214,3 +217,19 @@ python -m spacy download en_core_web_sm
 **svm.py** - code for training svm on the data
 
 .....
+
+# **IV**
+
+...
+
+
+# **V Citations**
+
+**Twitter dataset:** 
+
+Suhavi, Singh, A., Arora, U., Shrivastava, S., Singh, A., Shah, R. R., & Kumaraguru, P. (2022). Twitter Self-reported Temporally-contextual Mental Health Diagnosis (Twitter-STMHD) Dataset (Version 1) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.5854911 
+
+
+**Reddit dataset:** 
+
+Low, D. M., Rumker, L., Talker, T., Torous, J., Cecchi, G., & Ghosh, S. S. (2020). Reddit Mental Health Dataset (Version 01) [Data set]. Zenodo. https://doi.org/10.17605/OSF.IO/7PEYQ
