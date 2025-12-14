@@ -22,10 +22,12 @@ Folders in main/root folder:
 We are using 2 different datasets: one from Twitter and one from Reddit. 
 
 **The Twitter dataset** used in this project is from: https://zenodo.org/records/5854911
-    The larger dataset created based on these .json files is 24 million rows and a shorter one used primarily in modeling is 1 million rows (equal classes). From the available original features we use author, tweet text and time (label is created based on anchor text and /or dataset class). See below for feature extraction and original data citation. 
+    The larger dataset created based on these .json files is 24 million rows and a shorter one used primarily in modeling is 1 million rows (equal classes). From the available original features we use author, tweet text and time (label is created based on anchor text and /or dataset class). 
 
 **The Reddit Mental Health dataset** used in this project is from: https://zenodo.org/records/3941387 
     This dataset contains Reddit posts collected between 2018 and 2020 from 28 subreddits, including 15 mental health support subreddits and 13 control subreddits. For this project datasets from r/depression and r/fitness are used. The Reddit dataset comes with already preprocessed features (metadata, LIWC, TF-IDF, text and readability metrics, sentiment features, custom dictionaries) and weak labels (r/depression as a weak positive case label). The dataset derived from this source has 43373 rows (both classes are equal).
+
+See below for feature extraction and original data citation. 
 
 
 ## **1. Getting the data**
@@ -44,12 +46,12 @@ mkdir data
 
 Unzip these depression.zip and neg.zip files into your project folder:
 
-## Positive class
+**Positive class**
 ```bash
 unzip depression.zip -d data/depression
 ````
 
-## Negative class
+**Negative class**
 ```bash
 unzip neg.zip -d data/neg
 ```
