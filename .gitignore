@@ -12,9 +12,7 @@ __pycache__/
 test.py
 test2.py
 test3.py
-src/TwitterModels/
 src/CrossPlatFormTesting/
-
 
 # ignore all pdfs
 *.pdf
