@@ -218,6 +218,7 @@ python -m spacy download en_core_web_sm
 ````
 
 # **III Models**
+*Models are organised in two folders: src/RedditModels and src/TwitterModels. All models feature a short explanation as a comment in the heading.*
 
 **RF.py and RF2.py** - code for training random forest on the data
 
@@ -225,14 +226,10 @@ python -m spacy download en_core_web_sm
 
 **svm.py** - code for training svm on the data
 
-.....
-
-# **IV**
-
-...
 
 
-# **V Citations**
+
+# **IV Citations**
 
 **Twitter dataset:** 
 
