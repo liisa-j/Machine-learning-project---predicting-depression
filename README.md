@@ -131,14 +131,14 @@ Writes the cleaned dataframe to: data/shorty_clean.parquet
 
 **F_features_from_Twitter.py** - code for extracting text derived linguistic features. 
 
-+**Basic text metrics:**
+- **Basic text metrics:**
 char_count (total number of characters in the text), 
 word_count (total number of words),
 avg_word_len (average word length),
 unique_word_ratio (ratio of unique words to total words), 
 sentence_count (structure and length at sentence level)
 
-+**Punctuation & stylistic:**
+- **Punctuation & stylistic:**
 uppercase_ratio (proportion of words in all caps), 
 elongation_count (count of repeated letters (e.g., “soooo”)),
 ellipsis_count (count of “...”),
@@ -146,16 +146,16 @@ count_exclamation (number of !),
 count_question (number of ?), 
 repeated_exclamation, repeated_question (for expressive punctuation)
 
-+**Emoji features:**
+- **Emoji features:**
 emoji_count (total number of emojis),
 emoji_unique_count (number of unique emojis)
 
-+**Sentiment (TextBlob):**
+- **Sentiment (TextBlob):**
 polarity (sentiment polarity (-1 to 1)),
 subjectivity (sentiment subjectivity (0 to 1)),
 vader_neg, vader_neu, vader_pos, vader_compound (for more nuanced sentiment breakdown)
 
-+**Empath categories:**
+- **Empath categories:**
 sadness,
 fear,
 anger,
@@ -187,13 +187,13 @@ anxious,
 tentative,
 certainty
 
-+**Grammar / lexical patterns:**
+- **Grammar / lexical patterns:**
 first_person_count (count of first-person pronouns (I, me, etc.)),
 negation_count (count of negations (not, never, none, etc.)),
 max_word_repeat (maximum number of times a single word is repeated), 
 function_word_count (common function words)
 
-+**Readability (textstat):**
+- **Readability (textstat):**
 flesch_reading_ease (Flesch reading ease score),
 flesch_kincaid_grade (Flesch-Kincaid grade level)
 
