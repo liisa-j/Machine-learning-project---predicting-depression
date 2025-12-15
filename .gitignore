@@ -9,11 +9,13 @@ __pycache__/
 .vscode/
 
 #temporary
-explore_parquet.py
 test.py
-features.py
-shorty_report.txt
+test2.py
+test3.py
+src/TwitterModels/
+src/CrossPlatFormTesting/
 
 
 # ignore all pdfs
 *.pdf
+

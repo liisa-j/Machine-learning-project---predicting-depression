@@ -1,8 +1,8 @@
-# Machine-learning-project---predicting-depression
+# Machine learning project: Predicting Depression on Social Media Texts
 This is a repository for 'Machine learning' project, autumn 2025
 
 
-# Structure of this repository
+# Structure and contents of this repository
 Documents in main/root folder:
 - **README.md** - contains all the instructions and explanations on how to use this repo. You are reading this now. 
 - **requirements.txt** - contains list of required depencies for running the code

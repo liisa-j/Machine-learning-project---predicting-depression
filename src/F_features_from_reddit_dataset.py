@@ -1,5 +1,6 @@
 ## Feature extraction: Reddit ##
 ## This code takes the Reddit dataset (shorter one) and runs feature extraction on it
+## Inputs reddit_text_classification_dataset.parquet and outputs reddit_features.parquet
 
 import re
 import emoji

@@ -1,0 +1,114 @@
+## This script runs linear SVM on reddit feature extracted dataset
+## Takes in reddit_features.parquet
+
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.svm import LinearSVC
+from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.metrics import roc_curve, auc
+
+
+df = pd.read_parquet("data/reddit_features.parquet")
+
+
+y = df["label_encoded"]
+X = df.drop(columns=["label_encoded", "clean_text"]) 
+
+
+non_numeric = X.select_dtypes(exclude='number').columns.tolist()
+if non_numeric:
+    print("Warning: non-numeric columns detected, they will be dropped:", non_numeric)
+    X = X.drop(columns=non_numeric)
+
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42, stratify=y
+)
+
+
+scaler = StandardScaler()
+X_train_scaled = scaler.fit_transform(X_train)
+X_test_scaled = scaler.transform(X_test)
+
+clf = LinearSVC(max_iter=10000)  
+clf.fit(X_train_scaled, y_train)
+
+y_pred = clf.predict(X_test_scaled)
+
+print("Accuracy:", accuracy_score(y_test, y_pred))
+print("\nClassification Report:\n", classification_report(y_test, y_pred))
+print("\nConfusion Matrix:\n", confusion_matrix(y_test, y_pred))
+
+
+# feature importance
+coef = clf.coef_.flatten() 
+feature_names = X.columns.tolist()
+
+top_indices = np.argsort(np.abs(coef))[-20:]
+top_features = [feature_names[i] for i in top_indices]
+top_coefs = coef[top_indices]
+
+
+plt.figure(figsize=(10, 6))
+plt.barh(top_features, top_coefs)
+plt.xlabel("Coefficient Value")
+plt.title("Top 20 Most Important Numeric Features for Linear SVM")
+plt.show()
+
+
+if len(np.unique(y)) == 2:
+    y_score = clf.decision_function(X_test_scaled)
+    fpr, tpr, thresholds = roc_curve(y_test, y_score)
+    roc_auc = auc(fpr, tpr)
+
+    plt.figure(figsize=(6, 5))
+    plt.plot(fpr, tpr, label=f'AUC = {roc_auc:.2f}')
+    plt.plot([0, 1], [0, 1], 'k--')
+    plt.xlabel('False Positive Rate')
+    plt.ylabel('True Positive Rate')
+    plt.title('ROC Curve')
+    plt.legend(loc='lower right')
+    plt.show()
+
+
+#illustrations
+
+top_n = 20
+top_indices = np.argsort(np.abs(coef))[-top_n:] 
+top_features = [feature_names[i] for i in top_indices]
+top_coefs = coef[top_indices]
+
+plt.figure(figsize=(10, 6))
+colors = ['red' if c > 0 else 'green' for c in top_coefs]
+plt.barh(top_features, top_coefs, color=colors)
+plt.xlabel('Coefficient Value')
+plt.title(f'Top {top_n} Feature Coefficients (Positive = Higher Depression Risk, Negative = Lower)')
+plt.tight_layout() 
+plt.show()
+
+decision_scores = clf.decision_function(X_test_scaled)
+plt.figure(figsize=(8,5))
+plt.hist([decision_scores[y_test==0], decision_scores[y_test==1]], bins=30, label=['Not Depressed','Depressed'], alpha=0.7)
+plt.xlabel('Decision Function Score')
+plt.ylabel('Count')
+plt.title('Distribution of LinearSVC Decision Scores')
+plt.legend()
+plt.show()
+
+
+# doubts about this
+from sklearn.decomposition import PCA
+
+pca = PCA(n_components=2)
+X_pca = pca.fit_transform(X_test_scaled)
+
+plt.figure(figsize=(8,6))
+plt.scatter(X_pca[:,0], X_pca[:,1], c=y_test, cmap='coolwarm', alpha=0.7)
+plt.xlabel('PCA Component 1')
+plt.ylabel('PCA Component 2')
+plt.title('2D PCA Projection of Test Set')
+plt.colorbar(label='Depressed Label')
+plt.show()
