@@ -1,3 +1,7 @@
+## This code runs RF on user level Twitter data on both tf-idfs and calculated features
+## Inputs features_combinedtwitter.parquet
+
+
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt

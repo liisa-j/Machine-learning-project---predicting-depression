@@ -1,6 +1,6 @@
 ## This code runs Random Forest on Twitter dataset and uses Tf-Idf and extracted features
 ## Inputs shorty_features.parquet
-## Super slow.... 
+## Be informed - Super slow.... 
 
 import pandas as pd
 from sklearn.model_selection import train_test_split

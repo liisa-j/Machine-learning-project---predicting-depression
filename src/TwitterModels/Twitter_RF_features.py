@@ -1,4 +1,4 @@
-## This script runs Random Forest on Twitter data and only extracted features
+## This script runs Random Forest on Twitter data (tweet level) and only extracted features
 ## Performs awful
 ##  Inputs shorty_features.parquet
 

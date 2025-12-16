@@ -1,6 +1,5 @@
 ## This script runs linear SVM on Twitter user level data  
 ## Inputs features_combinedtwitter.parquet
-## reasonably fast
 
 import time
 import pandas as pd

@@ -1,4 +1,6 @@
-### Too slow... 
+### This script runs SVM on Twitter tweet level data using both tf-idf and calculated features
+# Inputs shorty_feature.parquet
+# Be informed - this is very slow... 
 
 import time
 import pandas as pd
