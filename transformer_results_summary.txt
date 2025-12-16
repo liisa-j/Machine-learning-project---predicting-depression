@@ -1,0 +1,20 @@
+
+TRANSFORMER MODEL RESULTS
+========================
+
+Model: DistilBERT-base-uncased
+Dataset: Reddit Depression Classification
+Training Samples: 14400
+Validation Samples: 1600
+Test Samples: 4000
+
+RESULTS:
+--------
+Accuracy: 0.9885
+F1 Score (Weighted): 0.9885
+F1 Score (Macro): 0.9885
+Training Time: 59.50 minutes
+
+CONFUSION MATRIX:
+[[1977   23]
+ [  23 1977]]

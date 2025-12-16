@@ -17,3 +17,8 @@ shorty_report.txt
 
 # ignore all pdfs
 *.pdf
+
+# Large model files
+transformer_model/
+*.safetensors
+*.pt

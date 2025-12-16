@@ -1,0 +1,17 @@
+{
+  "SVM": {
+    "Accuracy": 0.523,
+    "F1 Score": 0.4184515449438202,
+    "Training Time (min)": 0.005001068115234375
+  },
+  "Random Forest": {
+    "Accuracy": 0.87475,
+    "F1 Score": 0.8747496164207003,
+    "Training Time (min)": 0.006937658786773682
+  },
+  "Logistic Regression": {
+    "Accuracy": 0.8855,
+    "F1 Score": 0.8854607989584435,
+    "Training Time (min)": 0.0020033677419026693
+  }
+}
