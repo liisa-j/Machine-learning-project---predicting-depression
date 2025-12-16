@@ -1,5 +1,6 @@
 ## This script runs linear SVM on Twitter user level data  
 ## Inputs features_combinedtwitter.parquet
+## Also outputs wordclouds and feature importances
 
 import time
 import pandas as pd
@@ -9,6 +10,7 @@ from sklearn.svm import LinearSVC
 from sklearn.metrics import classification_report, confusion_matrix
 import numpy as np
 import matplotlib.pyplot as plt
+from wordcloud import WordCloud
 
 
 start = time.time()
@@ -67,4 +69,59 @@ plt.gca().invert_yaxis()
 plt.tight_layout()
 plt.show()
 
+
+
+## wordclouds 
+
+feature_names = tfidf.get_feature_names_out()
+coef = clf.coef_[0] 
+
+depressed_words = {
+    feature_names[i]: coef[i]
+    for i in range(len(coef))
+    if coef[i] > 0
+}
+
+print(f"Depression-indicative features: {len(depressed_words)}")
+
+wc_depressed = WordCloud(
+    width=1200,
+    height=600,
+    background_color='white',
+    max_words=200,
+    colormap='Reds'
+).generate_from_frequencies(depressed_words)
+
+plt.figure(figsize=(15, 7))
+plt.imshow(wc_depressed, interpolation='bilinear')
+plt.axis("off")
+plt.title("Word Cloud – Depression Risk (Linear SVM)", fontsize=18)
+plt.show()
+
+
+control_words = {
+    feature_names[i]: abs(coef[i]) 
+    for i in range(len(coef))
+    if coef[i] < 0
+}
+
+print(f"Control-indicative features: {len(control_words)}")
+
+wc_control = WordCloud(
+    width=1200,
+    height=600,
+    background_color='white',
+    max_words=200,
+    colormap='Blues'
+).generate_from_frequencies(control_words)
+
+plt.figure(figsize=(15, 7))
+plt.imshow(wc_control, interpolation='bilinear')
+plt.axis("off")
+plt.title("Word Cloud – Control Users (Linear SVM)", fontsize=18)
+plt.show()
+
+#save to file
+#wc_depressed.to_file("depression_wordcloud.png")
+#wc_control.to_file("control_wordcloud.png")
 
