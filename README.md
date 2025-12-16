@@ -1,5 +1,6 @@
 # Machine learning project: Predicting Depression on Social Media Texts
 This is a repository for 'Machine learning' project, autumn 2025
+The aim of this project is to explore the possibilities of predicting depression solely by using social media texts.
 
 
 # Structure and contents of this repository
@@ -120,6 +121,14 @@ Saves the sampled dataset to Parquet.
 Reads the raw parquet dataset: data/shorty.parquet. Cleans the data with preprocess_dataframe (Converts to lowercase, replaces URLs with <URL>, replaces mentions with @, removes standalone RT, emojis to text, encodes label col w LabelEncoder,  creates label_encoded, drops is_anchor, original text column, original label, removes extra whitespace).
 Writes the cleaned dataframe to: data/shorty_clean.parquet
 
+**P7_combine_tweets_by_user.py** - this script combines tweets by user, creating a dataset with user-level Twitter data. Inputs shorty_clean.parquet and outputs twitter_combineduser.parquet
+
+**P8_combine_tweets_by_user_truncated.py** - This script truncates the longest texts (at 95t percentile). Inputs shorty_clean outputs twitter_combineduser_trunc.parquet
+
+**P9_twitter_combined_remove_outliers.py** - This code removes outliers above 95th percentile (by word count). Inputs twitter_combineduser.parquet outputs twitter_combineduser_no_outliers.parquet
+
+
+
 ### b) Reddit data 
 
 **P6_intermediate_presentation/create_parquets.py** - run this script that preprocesses the Reddit csv-s in your /data and saves 2 ready-to-use Reddit datasets into your /data folder. 
@@ -198,9 +207,16 @@ flesch_reading_ease (Flesch reading ease score),
 flesch_kincaid_grade (Flesch-Kincaid grade level)
 
 
+**F_features_twitter_combined.py** - this script creates a new dataset with features for Twitter user level data. Takes in twitter_combineduserd.parquet and outputs features_combinedtwitter.parquet
+
+
+
 ### b) Reddit data
 
 **F_features_from_reddit_dataset.py** - this script takes the short Reddit preprocessed dataset and creates a new dataframe for Reddit data with the same features as the abovementioned *features_shorter2.py*. 
+
+**F_features_reddit_depechemood.py** - this script creates a new dataset for Reddit data, using a new sentiment lexicon (Depeche Mood). 
+
 
 
 # **II Requirements**
@@ -220,12 +236,24 @@ python -m spacy download en_core_web_sm
 # **III Models**
 *Models are organised in two folders: src/RedditModels and src/TwitterModels. All models feature a short explanation as a comment in the heading.*
 
-**RF.py and RF2.py** - code for training random forest on the data
+**src/RedditModels:**
+reddit_RF_features.py, 
+reddit_RF_tfidf_features.py, 
+reddit_features_svm.py, 
+reddit_features_tfidfs_svm.py, 
+reddit_original_features_LR.py, 
+reddit_tfidf_sm.py
 
-**linear_regression.py** - code for training linear regression on the data
 
-**svm.py** - code for training svm on the data
-
+**src/TwitterModels:**
+Twitter_LR_features.py, 
+Twitter_RF_features.py, 
+Twitter_RF_tfidf_features.py, 
+Twitter_RF_userlevel_tfidf_features.py, 
+Twitter_SVM_tfidf_features.py, 
+Twitter_ens_LR+RF_tfidf_features.py,
+Twitter_svm_features.py, 
+Twitter_user_svm_tfidf.py
 
 
 
