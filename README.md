@@ -1,5 +1,6 @@
 # Machine learning project: Predicting Depression on Social Media Texts
-This is a repository for 'Machine learning' project, autumn 2025
+This is a repository for 'Machine learning' project, autumn 2025.
+
 The aim of this project is to explore the possibilities of predicting depression solely by using social media texts.
 
 
@@ -19,6 +20,11 @@ This folder contains 2 subfolders:
 
 
 - **intermediate_presentation** - contains code for intermediate presentation dealing with the original Reddit dataset and extracting parquet files from this dataset (for more specific overview see the intermediate_presentation/README.md)
+
+
+Scripts in the main/root folder: 
+- **Scripts for preprocessing the data** - All files P_*.py are for preprocessing the data. For more details please see below (2. Scripts for data preprocessing). 
+- **Scripts for feature exctraction** - All files starting with F_*.py are for feature exctraction. For more details please see below (3. Scripts of feature exctraction). 
 
 
 ---
